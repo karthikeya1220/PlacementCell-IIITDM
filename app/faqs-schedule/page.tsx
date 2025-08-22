@@ -12,6 +12,7 @@ export default function FAQsSchedulePage() {
       <Navbar />
       <main>
         <FAQsHero />
+        <FAQsSchedule />
         <FAQsAccordion />
         <FAQsContact />
       </main>

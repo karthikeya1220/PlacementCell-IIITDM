@@ -175,7 +175,7 @@ export default function NotificationsSection() {
         </motion.div>
 
         {/* Featured Highlights */}
-        <motion.div
+        {/* <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
@@ -219,10 +219,10 @@ export default function NotificationsSection() {
               </motion.div>
             ))}
           </div>
-        </motion.div>
+        </motion.div> */}
 
         {/* Filter tabs */}
-        <Tabs defaultValue="all" value={activeTab} onValueChange={setActiveTab} className="max-w-4xl mx-auto mb-8">
+        {/* <Tabs defaultValue="all" value={activeTab} onValueChange={setActiveTab} className="max-w-4xl mx-auto mb-8">
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-2">
               <Filter className="h-5 w-5 text-[#4DA8DA]" />
@@ -259,7 +259,7 @@ export default function NotificationsSection() {
           <TabsContent value={activeTab} className="mt-0">
             <div ref={ref} className="max-w-6xl mx-auto">
               {/* Enhanced Grid Layout */}
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {/* <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {filteredNotifications.slice(0, visibleCount).map((notification, index) => (
                   <UpdateCard
                     key={notification.id}
@@ -279,9 +279,9 @@ export default function NotificationsSection() {
                     index={index}
                   />
                 ))}
-              </div>
+              </div> */}
 
-              {visibleCount < filteredNotifications.length && (
+              {/* {visibleCount < filteredNotifications.length && (
                 <div className="text-center mt-10">
                   <Button onClick={showAll} className="bg-[#0A2463] hover:bg-[#0A2463]/90 text-white">
                     View All Updates
@@ -289,8 +289,8 @@ export default function NotificationsSection() {
                 </div>
               )}
             </div>
-          </TabsContent>
-        </Tabs>
+          </TabsContent> */}
+        {/* </Tabs> */}
       </div>
     </section>
   )

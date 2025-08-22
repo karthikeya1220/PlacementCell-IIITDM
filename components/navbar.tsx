@@ -31,7 +31,6 @@ const navMenus = [
       { name: "Placement Rules", href: "/placement-rules" },
       { name: "Internship Rules", href: "/internship-rules" },
       { name: "Schedule and FAQs", href: "/faqs-schedule" },
-      { name: "IIITDM SIES", href: "#iiitdm-sies" },
     ],
   },
   {
@@ -44,7 +43,7 @@ const navMenus = [
     href: "#contact",
     dropdown: [
       { name: "Our Team", href: "/our-team" },
-      { name: "Reaching IIITDM", href: "#reaching-iiitdm" },
+      { name: "Reaching IIITDM", href: "https://iiitdm.ac.in/maps-and-directions/from-airport" },
     ],
   },
   {

@@ -1,213 +1,237 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { Button } from "@/components/ui/button"
-import { Download, Filter } from "lucide-react"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { placementData2024_25 } from "@/data/placement-data-2024-25"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 
-// Define the department data structure
-interface DepartmentData {
-  program: string
-  department: string
-  totalStudents: number
-  eligibleStudents: number
-  studentsPlaced: number
-  offers: number
-  placementPercentage: number
-  offerPercentage: number
-  averageCTC: number
-  maximumCTC: number
-}
-
-// Calculate department-wise statistics
-const calculateDepartmentStats = () => {
-  // Group data by department and program
-  const departmentGroups: Record<string, Record<string, any[]>> = {}
-
-  placementData2024_25.forEach((entry) => {
-    const key = `${entry.program}-${entry.department}`
-    if (!departmentGroups[key]) {
-      departmentGroups[key] = {
-        entries: [],
-        uniqueStudents: new Set(),
-        salaries: [],
-      }
-    }
-
-    departmentGroups[key].entries.push(entry)
-    departmentGroups[key].uniqueStudents.add(entry.rollNo)
-
-    if (entry.salary && typeof entry.salary === "number" && entry.salary > 0) {
-      departmentGroups[key].salaries.push(entry.salary)
-    }
-  })
-
-  // Estimated total students and eligible students by department
-  // These are estimates since we don't have the actual data
-  const estimatedTotalStudents: Record<string, number> = {
-    "B.Tech-CSE": 83,
-    "B.Tech-CSE(AI)": 43,
-    "B.Tech-ECE": 105,
-    "B.Tech-Mech": 71,
-    "B.Tech-SM": 31,
-    "M.Tech-M.Tech (CSE)": 13,
-    "M.Tech-M.Tech (ECE - VLSI)": 4,
-    "M.Tech-M.Tech (ECE - CSD)": 2,
-    "M.Tech-M.Tech (SM)": 3,
-    "M.Tech-M.Tech (Mech - ESD)": 4,
-    "M.Des-M.Des": 13,
+// Complete placement data with all departments
+const placementData = [
+  {
+    program: "B.Tech",
+    department: "CSE",
+    total: 83,
+    eligible: 62,
+    eligiblePct: "74.7%",
+    placed: 50,
+    offers: 64,
+    placementPct: "80.6%",
+    offerPct: "103.2%",
+    avgCtc: "9,85,730",
+    maxCtc: "32,57,000"
+  },
+  {
+    program: "",
+    department: "CSE (AI)",
+    total: 43,
+    eligible: 31,
+    eligiblePct: "72.1%",
+    placed: 17,
+    offers: 22,
+    placementPct: "54.8%",
+    offerPct: "71.0%",
+    avgCtc: "11,67,233",
+    maxCtc: "32,57,000"
+  },
+  {
+    program: "",
+    department: "ECE",
+    total: 105,
+    eligible: 72,
+    eligiblePct: "68.6%",
+    placed: 36,
+    offers: 46,
+    placementPct: "50.0%",
+    offerPct: "63.9%",
+    avgCtc: "10,73,952",
+    maxCtc: "31,64,200"
+  },
+  {
+    program: "",
+    department: "MECH",
+    total: 71,
+    eligible: 44,
+    eligiblePct: "62.0%",
+    placed: 27,
+    offers: 31,
+    placementPct: "61.4%",
+    offerPct: "70.5%",
+    avgCtc: "6,47,105",
+    maxCtc: "12,19,000"
+  },
+  {
+    program: "",
+    department: "SM",
+    total: 31,
+    eligible: 20,
+    eligiblePct: "64.5%",
+    placed: 11,
+    offers: 13,
+    placementPct: "55.0%",
+    offerPct: "65.0%",
+    avgCtc: "7,14,875",
+    maxCtc: "12,19,000"
+  },
+  {
+    program: "M.Tech",
+    department: "CSE (DS&AI)",
+    total: 13,
+    eligible: 11,
+    eligiblePct: "84.6%",
+    placed: 7,
+    offers: 8,
+    placementPct: "63.6%",
+    offerPct: "72.7%",
+    avgCtc: "8,19,500",
+    maxCtc: "18,78,000"
+  },
+  {
+    program: "",
+    department: "ECE(VLSI)",
+    total: 4,
+    eligible: 4,
+    eligiblePct: "100.0%",
+    placed: 3,
+    offers: 3,
+    placementPct: "75.0%",
+    offerPct: "75.0%",
+    avgCtc: "18,78,000",
+    maxCtc: "18,78,000"
+  },
+  {
+    program: "",
+    department: "ECE (CSD)",
+    total: 2,
+    eligible: 2,
+    eligiblePct: "100.0%",
+    placed: 1,
+    offers: 1,
+    placementPct: "50.0%",
+    offerPct: "50.0%",
+    avgCtc: "6,00,000",
+    maxCtc: "6,00,000"
+  },
+  {
+    program: "",
+    department: "MECH (SM)",
+    total: 3,
+    eligible: 2,
+    eligiblePct: "66.7%",
+    placed: 1,
+    offers: 1,
+    placementPct: "50.0%",
+    offerPct: "50.0%",
+    avgCtc: "15,00,259",
+    maxCtc: "15,00,259"
+  },
+  {
+    program: "",
+    department: "MECH (ESD)",
+    total: 4,
+    eligible: 2,
+    eligiblePct: "50.0%",
+    placed: 1,
+    offers: 1,
+    placementPct: "50.0%",
+    offerPct: "50.0%",
+    avgCtc: "6,00,000",
+    maxCtc: "6,00,000"
+  },
+  {
+    program: "M.Des",
+    department: "IPD",
+    total: 12,
+    eligible: 10,
+    eligiblePct: "83.3%",
+    placed: 7,
+    offers: 8,
+    placementPct: "70.0%",
+    offerPct: "80.0%",
+    avgCtc: "3,50,000",
+    maxCtc: "3,50,000"
   }
+];
 
-  const estimatedEligibleStudents: Record<string, number> = {
-    "B.Tech-CSE": 73,
-    "B.Tech-CSE(AI)": 36,
-    "B.Tech-ECE": 72,
-    "B.Tech-Mech": 43,
-    "B.Tech-SM": 21,
-    "M.Tech-M.Tech (CSE)": 13,
-    "M.Tech-M.Tech (ECE - VLSI)": 4,
-    "M.Tech-M.Tech (ECE - CSD)": 2,
-    "M.Tech-M.Tech (SM)": 2,
-    "M.Tech-M.Tech (Mech - ESD)": 3,
-    "M.Des-M.Des": 10,
-  }
+// Total row data
+const totalData = {
+  program: "Total",
+  department: "",
+  total: 371,
+  eligible: 260,
+  eligiblePct: "70.1%",
+  placed: 161,
+  offers: 198,
+  placementPct: "61.9%",
+  offerPct: "76.2%",
+  avgCtc: "9,75,721",
+  maxCtc: "32,57,000"
+};
 
-  // Convert to array of department data
-  const departmentData: DepartmentData[] = Object.entries(departmentGroups).map(([key, data]) => {
-    const [program, department] = key.split("-")
-    const studentsPlaced = data.uniqueStudents.size
-    const offers = data.entries.length
-    const totalStudents = estimatedTotalStudents[key] || studentsPlaced * 2 // Fallback estimate
-    const eligibleStudents = estimatedEligibleStudents[key] || studentsPlaced * 1.5 // Fallback estimate
-
-    const salaries = data.salaries
-    const averageCTC = salaries.length > 0 ? salaries.reduce((sum, salary) => sum + salary, 0) / salaries.length : 0
-    const maximumCTC = salaries.length > 0 ? Math.max(...salaries) : 0
-
-    return {
-      program,
-      department,
-      totalStudents,
-      eligibleStudents,
-      studentsPlaced,
-      offers,
-      placementPercentage: (studentsPlaced / eligibleStudents) * 100,
-      offerPercentage: (offers / eligibleStudents) * 100,
-      averageCTC: averageCTC / 100000, // Convert to lakhs
-      maximumCTC: maximumCTC / 100000, // Convert to lakhs
-    }
-  })
-
-  return departmentData
-}
-
-const departmentStats = calculateDepartmentStats()
-
-export default function StatisticsDepartmentTable() {
-  const [programFilter, setProgramFilter] = useState<string>("all")
-
-  // Filter data based on program selection
-  const filteredData =
-    programFilter === "all" ? departmentStats : departmentStats.filter((item) => item.program === programFilter)
-
-  // Format currency values
-  const formatCurrency = (value: number) => {
-    if (value === 0) return "-"
-    return `₹${value.toLocaleString("en-IN", { maximumFractionDigits: 2 })}`
-  }
-
-  // Format percentage values
-  const formatPercentage = (value: number) => {
-    if (isNaN(value) || !isFinite(value)) return "0%"
-    return `${value.toFixed(1)}%`
-  }
-
+export default function PlacementTable() {
   return (
-    <section className="py-12 bg-white">
-      <div className="container mx-auto px-4">
-        <h2 className="text-3xl font-bold text-center mb-8">UG & PG Department-wise Placement Details (2024-2025)</h2>
-
-        <Card>
-          <CardHeader>
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-              <div>
-                <CardTitle>Department-wise Statistics</CardTitle>
-                <CardDescription>Comprehensive breakdown by program and department</CardDescription>
-              </div>
-
-              <div className="flex flex-col sm:flex-row gap-3">
-                <div className="flex items-center">
-                  <Filter className="mr-2 h-4 w-4" />
-                  <Select value={programFilter} onValueChange={setProgramFilter}>
-                    <SelectTrigger className="w-[180px]">
-                      <SelectValue placeholder="Filter by Program" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="all">All Programs</SelectItem>
-                      <SelectItem value="B.Tech">B.Tech</SelectItem>
-                      <SelectItem value="M.Tech">M.Tech</SelectItem>
-                      <SelectItem value="M.Des">M.Des</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <Button variant="outline">
-                  <Download className="mr-2 h-4 w-4" /> Export
-                </Button>
-              </div>
-            </div>
-          </CardHeader>
-
-          <CardContent>
-            <div className="rounded-md border overflow-x-auto">
-              <Table>
-                <TableHeader>
-                  <TableRow className="bg-muted/50">
-                    <TableHead>Program</TableHead>
-                    <TableHead>Department</TableHead>
-                    <TableHead className="text-right">Total Students</TableHead>
-                    <TableHead className="text-right">Eligible Students</TableHead>
-                    <TableHead className="text-right">Students Placed</TableHead>
-                    <TableHead className="text-right">Offers</TableHead>
-                    <TableHead className="text-right">Placement %</TableHead>
-                    <TableHead className="text-right">Offer %</TableHead>
-                    <TableHead className="text-right">Average CTC</TableHead>
-                    <TableHead className="text-right">Maximum CTC</TableHead>
-                  </TableRow>
-                </TableHeader>
-
-                <TableBody>
-                  {filteredData.map((item, index) => (
-                    <TableRow key={index}>
-                      <TableCell>{item.program}</TableCell>
-                      <TableCell>{item.department}</TableCell>
-                      <TableCell className="text-right">{item.totalStudents}</TableCell>
-                      <TableCell className="text-right">{item.eligibleStudents}</TableCell>
-                      <TableCell className="text-right">{item.studentsPlaced}</TableCell>
-                      <TableCell className="text-right">{item.offers}</TableCell>
-                      <TableCell className="text-right">{formatPercentage(item.placementPercentage)}</TableCell>
-                      <TableCell className="text-right">{formatPercentage(item.offerPercentage)}</TableCell>
-                      <TableCell className="text-right">
-                        {item.averageCTC > 0
-                          ? `₹${item.averageCTC.toLocaleString("en-IN", { maximumFractionDigits: 2 })}`
-                          : "-"}
-                      </TableCell>
-                      <TableCell className="text-right">
-                        {item.maximumCTC > 0
-                          ? `₹${item.maximumCTC.toLocaleString("en-IN", { maximumFractionDigits: 2 })}`
-                          : "-"}
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </div>
-          </CardContent>
-        </Card>
+    <div className="w-full p-6" data-section="department-table">
+      <h2 className="text-2xl font-bold mb-4 text-center">
+        Department-wise Placement Statistics
+      </h2>
+      
+      <div className="overflow-x-auto rounded-xl shadow-md border">
+        <Table>
+          <TableHeader>
+            <TableRow className="bg-gray-100">
+              <TableHead className="text-center min-w-[80px]">Programme</TableHead>
+              <TableHead className="text-center min-w-[120px]">Department</TableHead>
+              <TableHead className="text-center min-w-[80px]">Total Students</TableHead>
+              <TableHead className="text-center min-w-[80px]">Eligible Students</TableHead>
+              <TableHead className="text-center min-w-[80px]">Eligible %</TableHead>
+              <TableHead className="text-center min-w-[80px]">Placed Students</TableHead>
+              <TableHead className="text-center min-w-[80px]">Offers</TableHead>
+              <TableHead className="text-center min-w-[80px]">Placement %</TableHead>
+              <TableHead className="text-center min-w-[80px]">Offer %</TableHead>
+              <TableHead className="text-center min-w-[100px]">Average CTC (LPA)</TableHead>
+              <TableHead className="text-center min-w-[100px]">Maximum CTC (LPA)</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {placementData.map((row, index) => (
+              <TableRow key={index} className="hover:bg-gray-50">
+                <TableCell className="text-center font-medium">
+                  {row.program}
+                </TableCell>
+                <TableCell className="text-center text-purple-700 font-semibold whitespace-nowrap">
+                  {row.department}
+                </TableCell>
+                <TableCell className="text-center">{row.total}</TableCell>
+                <TableCell className="text-center">{row.eligible}</TableCell>
+                <TableCell className="text-center">{row.eligiblePct}</TableCell>
+                <TableCell className="text-center">{row.placed}</TableCell>
+                <TableCell className="text-center">{row.offers}</TableCell>
+                <TableCell className="text-center">{row.placementPct}</TableCell>
+                <TableCell className="text-center">{row.offerPct}</TableCell>
+                <TableCell className="text-center">{row.avgCtc}</TableCell>
+                <TableCell className="text-center">{row.maxCtc}</TableCell>
+              </TableRow>
+            ))}
+            {/* Total row */}
+            <TableRow className="bg-gray-100 font-bold border-t-2">
+              <TableCell className="text-center">{totalData.program}</TableCell>
+              <TableCell className="text-center">{totalData.department}</TableCell>
+              <TableCell className="text-center">{totalData.total}</TableCell>
+              <TableCell className="text-center">{totalData.eligible}</TableCell>
+              <TableCell className="text-center">{totalData.eligiblePct}</TableCell>
+              <TableCell className="text-center">{totalData.placed}</TableCell>
+              <TableCell className="text-center">{totalData.offers}</TableCell>
+              <TableCell className="text-center">{totalData.placementPct}</TableCell>
+              <TableCell className="text-center">{totalData.offerPct}</TableCell>
+              <TableCell className="text-center">{totalData.avgCtc}</TableCell>
+              <TableCell className="text-center">{totalData.maxCtc}</TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
       </div>
-    </section>
-  )
+    </div>
+  );
 }

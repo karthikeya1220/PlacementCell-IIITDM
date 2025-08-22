@@ -95,7 +95,7 @@ export default function DirectorsMessage() {
                     <div className="flex items-center justify-center lg:justify-start">
                       <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
                         <p className="font-bold text-white text-xl mb-1">
-                          Prof. [Director Name]
+                          Prof. M V Karthikeyan
                         </p>
                         <p className="text-white/80 text-sm font-medium">
                           Director, IIITDM Kancheepuram
@@ -120,10 +120,11 @@ export default function DirectorsMessage() {
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.4 }}
           >
-            <div className="relative bg-gradient-to-br from-white via-gray-50 to-blue-50/50 rounded-3xl p-10 md:p-12 shadow-2xl border border-gray-100 overflow-hidden">
-              {/* Background decorative elements */}
-              <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-[#4DA8DA]/5 to-transparent rounded-full blur-2xl" />
-              <div className="absolute bottom-0 left-0 w-48 h-48 bg-gradient-to-tr from-[#0A2463]/5 to-transparent rounded-full blur-2xl" />
+            <div className="relative bg-gradient-to-br from-[#0A2463] via-[#1E3A8A] to-[#0A2463] rounded-3xl p-10 md:p-12 shadow-2xl text-white overflow-hidden">
+              {/* Background pattern */}
+              <div className="absolute inset-0 opacity-10">
+                <div className="w-full h-full bg-gradient-to-br from-transparent via-white/5 to-transparent" />
+              </div>
 
               <div className="relative z-10">
                 <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
@@ -145,14 +146,14 @@ export default function DirectorsMessage() {
                   {/* Content Section */}
                   <div className="flex-1 text-center lg:text-left">
                     <div className="mb-6">
-                      <div className="inline-flex items-center gap-2 bg-gradient-to-r from-[#4DA8DA]/10 to-[#0A2463]/10 px-4 py-2 rounded-full text-[#0A2463] text-sm font-medium mb-4 border border-[#4DA8DA]/20">
+                      <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full text-white/90 text-sm font-medium mb-4">
                         <BookOpen className="w-4 h-4" />
                         Dean Academic's Message
                       </div>
                       <Quote className="h-12 w-12 text-[#4DA8DA] mb-4 mx-auto lg:mx-0" />
                     </div>
 
-                    <blockquote className="text-black/95 mb-8 leading-relaxed text-lg md:text-xl font-light">
+                    <blockquote className="text-white/95 mb-8 leading-relaxed text-lg md:text-xl font-light">
                       "Congratulations in advance on the verge of completing
                       your academic journey at IIITDM Kancheepuram. This
                       milestone is a testament to your hard work, perseverance,
@@ -174,16 +175,16 @@ export default function DirectorsMessage() {
                     </blockquote>
 
                     <div className="flex items-center justify-center lg:justify-start">
-                      <div className="bg-gradient-to-br from-white to-gray-50 rounded-2xl p-6 border border-gray-200 shadow-lg">
-                        <p className="font-bold text-[#0A2463] text-xl mb-1">
+                      <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
+                        <p className="font-bold text-white text-xl mb-1">
                           Prof. Jayabal K
                         </p>
-                        <p className="text-gray-600 text-sm font-medium">
+                        <p className="text-white/80 text-sm font-medium">
                           Dean - Academic Affairs, IIITDM Kancheepuram
                         </p>
                         <div className="flex items-center gap-1 mt-2 text-[#4DA8DA]">
                           <Users className="w-4 h-4" />
-                          <span className="text-xs text-gray-500">
+                          <span className="text-xs text-white/70">
                             Academic Excellence
                           </span>
                         </div>

@@ -3,8 +3,37 @@
 import { ArrowRight, Download } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { statistics } from "@/data/placement-data-2024-25"
+import { useRouter } from "next/navigation"
 
 export default function StatisticsHero() {
+  const router = useRouter()
+
+  const handleViewDetailedStats = () => {
+    // Check if we're already on the statistics page
+    if (typeof window !== 'undefined' && window.location.pathname === '/statistics') {
+      // Scroll to the department table section with smooth animation
+      const tableSection = document.querySelector('[data-section="department-table"]')
+      if (tableSection) {
+        tableSection.scrollIntoView({ 
+          behavior: 'smooth',
+          block: 'start'
+        })
+      }
+    } else {
+      // Navigate to statistics page
+      router.push('/statistics')
+    }
+  }
+
+  const handleDownloadBrochure = () => {
+    // You can implement the download functionality here
+    // For now, we'll create a placeholder
+    const confirmed = window.confirm("Placement brochure download will be available soon! Would you like to be redirected to our contact page for more information?")
+    if (confirmed) {
+      // You can redirect to contact or placement procedure page
+      router.push('/placement-procedure')
+    }
+  }
   return (
     <section className="relative bg-gradient-to-r from-[#0A2463] to-[#1E3A8A] text-white py-20 md:py-28">
       <div className="absolute inset-0 bg-[url('/abstract-geometric-pattern.png')] bg-cover bg-center opacity-10"></div>
@@ -38,10 +67,17 @@ export default function StatisticsHero() {
           </div>
 
           <div className="flex flex-wrap justify-center gap-4">
-            <Button className="bg-white text-[#0A2463] hover:bg-gray-100">
+            <Button 
+              onClick={handleDownloadBrochure}
+              className="bg-white text-[#0A2463] hover:bg-gray-100"
+            >
               Download Placement Brochure <Download className="ml-2 h-4 w-4" />
             </Button>
-            <Button variant="outline" className="bg-transparent border-white text-white hover:bg-white/10">
+            <Button 
+              onClick={handleViewDetailedStats}
+              variant="outline" 
+              className="bg-transparent border-white text-white hover:bg-white/10"
+            >
               View Detailed Statistics <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           </div>
