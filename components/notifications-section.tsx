@@ -139,7 +139,7 @@ export default function NotificationsSection() {
       
       <div className="container mx-auto px-4 relative z-10">
         {/* Header with Quick Stats */}
-        <motion.div
+        {/* <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
@@ -158,7 +158,7 @@ export default function NotificationsSection() {
           </p>
 
           {/* Quick Stats */}
-          <div className="flex flex-wrap justify-center gap-6 mb-8">
+          {/* <div className="flex flex-wrap justify-center gap-6 mb-8">
             <div className="bg-white rounded-2xl px-6 py-4 shadow-lg border border-gray-100">
               <div className="text-2xl font-bold text-[#0A2463]">{stats.totalOffers}</div>
               <div className="text-sm text-gray-600">Active Updates</div>
@@ -171,8 +171,8 @@ export default function NotificationsSection() {
               <div className="text-2xl font-bold text-[#0A2463]">{stats.companiesVisited}+</div>
               <div className="text-sm text-gray-600">Companies</div>
             </div>
-          </div>
-        </motion.div>
+          </div> */}
+        {/* </motion.div> */} 
 
         {/* Featured Highlights */}
         {/* <motion.div
