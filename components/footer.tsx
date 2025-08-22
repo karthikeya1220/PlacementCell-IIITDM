@@ -156,10 +156,7 @@ export default function Footer() {
               </Link>
             </div>
 
-            <h4 className="font-medium mb-2">Placement Officers</h4>
-            <p className="text-sm text-gray-300 mb-1">Dr. Senthilkumaran K</p>
-            <p className="text-sm text-gray-300 mb-4">Dr. Priyanka Kokil</p>
-
+            
             <Link
               href="/our-team"
               className="inline-flex items-center gap-1 bg-[#4DA8DA] hover:bg-[#4DA8DA]/90 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors"
